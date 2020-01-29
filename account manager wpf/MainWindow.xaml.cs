@@ -20,6 +20,8 @@ namespace account_manager_wpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Account currentlySelectedAccount = null;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,33 +31,57 @@ namespace account_manager_wpf
         private void setUp()
         {
             AccountListHandler.getAllAccounts();
-            foreach (KeyValuePair<string, Dictionary<string, List<Account>>> player in AccountListHandler.accounts)
-            {
-                TreeViewItem tviPlayer = new TreeViewItem();
-                tviPlayer.Header = player.Key;
-                tvwAccounts.Items.Add(tviPlayer);
-
-                foreach (KeyValuePair<string, List<Account>> server in player.Value)
-                {
-                    TreeViewItem tviServer = new TreeViewItem();
-                    tviServer.Header = server.Key;
-                    tviPlayer.Items.Add(tviServer);
-
-                    foreach (Account account in server.Value)
-                    {
-                        TreeViewItem tviAccount = new TreeViewItem();
-                        tviAccount.Header = account.name;
-                        tviServer.Items.Add(tviAccount);
-                    }
-                }
-            }
+            AccountListHandler.updateAllAccounts();
+            cmbPlayer.ItemsSource = AccountListHandler.accounts.Keys;
         }
+
+
 
         private void btnAddAccount_Click(object sender, RoutedEventArgs e)
         {
             AddAccountWindow addAccountWindow = new AddAccountWindow(this);
             addAccountWindow.Show();
             this.Visibility = Visibility.Collapsed;
+        }
+
+        private void cmbPlayer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            currentlySelectedAccount = null;
+            cmbServer.ItemsSource = AccountListHandler.accounts[Convert.ToString(cmbPlayer.SelectedValue)].Keys;
+        }
+
+        private void cmbServer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            currentlySelectedAccount = null;
+            try
+            {
+                foreach (Account account in AccountListHandler.accounts[Convert.ToString(cmbPlayer.SelectedValue)][Convert.ToString(cmbServer.SelectedValue)])
+                {
+                    ListBoxItem lbiAccount = new ListBoxItem();
+                    lbiAccount.Content = account.name;
+                    lstAccounts.Items.Add(lbiAccount);
+
+                    lbiAccount.Selected += new System.Windows.RoutedEventHandler((item, args) =>
+                    {
+                        currentlySelectedAccount = account;
+                        txtUsername.Text = account.username;
+                        txtPassword.Text = account.password;
+                        lblRank.Content = account.tier + " " + account.rank + " (" + account.leaguePoints + " LP)";
+                        lblWinrate.Content = Math.Round((float)account.wins / ((float)account.wins + (float)account.losses) * 100, 2) + " %";
+                    });
+                }
+            }
+            catch (Exception) { }
+        }
+
+        private void btnDeleteAccount_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        public void updateListbox()
+        {
+            cmbServer_SelectionChanged(null, null);
         }
     }
 }

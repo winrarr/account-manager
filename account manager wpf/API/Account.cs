@@ -101,7 +101,7 @@ namespace account_manager_wpf
         public void addAPIRank(API.APIRank apir)
         {
             queueType = apir.queueType;
-            name = apir.summonerName;
+            summonerName = apir.summonerName;
             hotStreak = apir.hotStreak;
             wins = apir.wins;
             veteran = apir.veteran;

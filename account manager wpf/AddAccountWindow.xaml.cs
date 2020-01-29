@@ -36,41 +36,13 @@ namespace account_manager_wpf
 
         private void btnAddAccount_Click(object sender, RoutedEventArgs e)
         {
-            Account account = new Account(txtPlayer.Text, txtUsername.Text, txtPassword.Text, cmbServer.Text, txtName.Text);
-
-            if (account.failed)
-            {
-                MessageBox.Show("Something went wrong");
-                return;
-            }
-            if (AccountListHandler.puuIds.Contains(account.puuId))
-            {
-                MessageBox.Show("Account already added");
-                return;
-            }
-            AccountListHandler.puuIds.Add(account.puuId);
-
-
-            if (!AccountListHandler.accounts.ContainsKey(txtPlayer.Text)) // If player not present
-            {
-                AccountListHandler.accounts[txtPlayer.Text] = new Dictionary<string, List<Account>>(); // Add <player, server dictionary> to dictionary
-            }
-
-            if (!AccountListHandler.accounts[txtPlayer.Text].ContainsKey(cmbServer.Text)) // If server not present in player
-            {
-                AccountListHandler.accounts[txtPlayer.Text][cmbServer.Text] = new List<Account>(); // Add empty server list<account> to player
-            }
-
-            AccountListHandler.accounts[txtPlayer.Text][cmbServer.Text].Add(account); // Add account to server
-
-
-            AccountListHandler.serializeAllAccounts();
-
+            AccountListHandler.addAccount(txtPlayer.Text, txtUsername.Text, txtPassword.Text, txtPassword.Text, txtName.Text);
             this.Close();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            mainWindow.updateListbox();
             mainWindow.Visibility = Visibility.Visible;
         }
     }
