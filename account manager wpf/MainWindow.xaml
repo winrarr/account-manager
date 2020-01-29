@@ -1,0 +1,29 @@
+﻿<Window x:Class="account_manager_wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:account_manager_wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="410" Width="292">
+    <Grid>
+        <ComboBox x:Name="cmbServer" HorizontalAlignment="Left" Margin="61,45,0,0" VerticalAlignment="Top" Width="87"/>
+        <TreeView x:Name="tvwAccounts" HorizontalAlignment="Left" Height="174" Margin="10,85,0,0" VerticalAlignment="Top" Width="263"/>
+        <Button x:Name="btnAddAccount" Content="Add Account" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" Width="122" Click="btnAddAccount_Click"/>
+        <Label x:Name="lblServer" Content="Server:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblPlayer" Content="Player:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbPlayer" HorizontalAlignment="Left" Margin="61,14,0,0" VerticalAlignment="Top" Width="207"/>
+        <CheckBox x:Name="chkShowPassword" Content="Show Password" HorizontalAlignment="Left" Margin="165,49,0,0" VerticalAlignment="Top" Width="112" RenderTransformOrigin="0.5,0.5">
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.077"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+        </CheckBox>
+        <Button x:Name="btnDeleteAccount" Content="Delete Account" HorizontalAlignment="Left" Margin="146,273,0,0" VerticalAlignment="Top" Width="121"/>
+
+    </Grid>
+</Window>
