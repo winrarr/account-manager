@@ -83,5 +83,16 @@ namespace account_manager_wpf
         {
             cmbServer_SelectionChanged(null, null);
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            AccountListHandler.accounts["default"].Add(cmbPlayer.Text, new List<Account>());
+            AccountListHandler.accounts["default"].Add(cmbServer.Text, new List<Account>());
+        }
+
+        private void btwUpdateAccounts_Click(object sender, RoutedEventArgs e)
+        {
+            AccountListHandler.updateAllAccounts();
+        }
     }
 }

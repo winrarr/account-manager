@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:account_manager_wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="532.831" Width="292">
+        Title="MainWindow" Height="569.282" Width="292" Closed="Window_Closed">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="183*"/>
@@ -36,6 +36,7 @@
         <Label Content="W/R:" HorizontalAlignment="Left" Margin="18,463,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblRank" Content="" HorizontalAlignment="Left" Margin="62,439,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="206"/>
         <Label x:Name="lblWinrate" Content="" HorizontalAlignment="Left" Margin="62,463,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="206"/>
+        <Button x:Name="btwUpdateAccounts" Content="Update All Accounts" HorizontalAlignment="Left" Margin="18,494,0,0" VerticalAlignment="Top" Width="250" Grid.ColumnSpan="2" Height="29" Click="btwUpdateAccounts_Click"/>
 
     </Grid>
 </Window>

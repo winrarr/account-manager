@@ -24,6 +24,7 @@ namespace account_manager_wpf
             catch (Exception)
             {
                 accounts = new Dictionary<string, Dictionary<string, List<Account>>>();
+                accounts.Add("default", new Dictionary<string, List<Account>>());
             }
         }
 
