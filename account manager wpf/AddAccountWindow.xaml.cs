@@ -36,7 +36,17 @@ namespace account_manager_wpf
 
         private void btnAddAccount_Click(object sender, RoutedEventArgs e)
         {
-            DataHandler.addAccount(txtPlayer.Text, txtUsername.Text, txtPassword.Text, cmbServer.Text, txtName.Text);
+            switch (DataHandler.addAccount(txtPlayer.Text, txtUsername.Text, txtPassword.Text, cmbServer.Text, txtName.Text))
+            {
+                case 0:
+                    break;
+                case 1:
+                    MessageBox.Show("Account already added");
+                    break;
+                case 2:
+                    MessageBox.Show("Something went wrong");
+                    break;
+            }
             this.Close();
         }
 

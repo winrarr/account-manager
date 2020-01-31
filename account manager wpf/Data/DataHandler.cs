@@ -80,23 +80,29 @@ namespace account_manager_wpf
             return null;
         }
 
-        public static void addAccount(string player, string username, string password, string server, string name)
+        public static int addAccount(string player, string username, string password, string server, string name)
         {
             Account account = new Account(player, username, password, server, name);
 
             if (account.failed)
             {
-                MessageBox.Show("Something went wrong");
-                return;
+                return 2;
             }
             if (data.puuIds.Contains(account.puuId))
             {
                 MessageBox.Show("Account already added");
-                return;
+                return 1;
             }
             data.puuIds.Add(account.puuId);
 
 
+            foreach (string p in data.accounts.Keys)
+            {
+                if (p.ToUpper().Equals(player.ToUpper()))
+                {
+
+                }
+            }
             if (!data.accounts.ContainsKey(player)) // If player not present
             {
                 data.accounts[player] = new Dictionary<string, List<Account>>(); // Add <player, server dictionary> to dictionary
@@ -109,8 +115,9 @@ namespace account_manager_wpf
 
             data.accounts[player][server].Add(account); // Add account to server
 
-
             serialize();
+
+            return 0;
         }
     }
 }
