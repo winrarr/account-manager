@@ -10,7 +10,7 @@ namespace account_manager_wpf
 {
     public class RiotAPI
     {
-        private static string apiKey = "?api_key=" + "RGAPI-84959e05-8e35-4427-8c61-29ded10b059a";
+        private static string apiKey = "?api_key=" + "RGAPI-5f3e28b8-533a-4618-92c0-858a4514fcb1";
 
         public static APIAccount GetAccountFromName<APIAccount>(string server, string name) where APIAccount : new()
         {

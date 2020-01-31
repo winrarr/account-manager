@@ -30,9 +30,9 @@ namespace account_manager_wpf
 
         private void setUp()
         {
-            AccountListHandler.getAllAccounts();
-            AccountListHandler.updateAllAccounts();
-            cmbPlayer.ItemsSource = AccountListHandler.accounts.Keys;
+            DataHandler.deserialize();
+            DataHandler.updateAllAccounts();
+            cmbPlayer.ItemsSource = DataHandler.data.accounts.Keys;
         }
 
 
@@ -47,7 +47,7 @@ namespace account_manager_wpf
         private void cmbPlayer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             currentlySelectedAccount = null;
-            cmbServer.ItemsSource = AccountListHandler.accounts[Convert.ToString(cmbPlayer.SelectedValue)].Keys;
+            cmbServer.ItemsSource = DataHandler.data.accounts[Convert.ToString(cmbPlayer.SelectedValue)].Keys;
         }
 
         private void cmbServer_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -55,7 +55,7 @@ namespace account_manager_wpf
             currentlySelectedAccount = null;
             try
             {
-                foreach (Account account in AccountListHandler.accounts[Convert.ToString(cmbPlayer.SelectedValue)][Convert.ToString(cmbServer.SelectedValue)])
+                foreach (Account account in DataHandler.data.accounts[Convert.ToString(cmbPlayer.SelectedValue)][Convert.ToString(cmbServer.SelectedValue)])
                 {
                     ListBoxItem lbiAccount = new ListBoxItem();
                     lbiAccount.Content = account.name;
@@ -76,12 +76,18 @@ namespace account_manager_wpf
 
         private void btnDeleteAccount_Click(object sender, RoutedEventArgs e)
         {
-            
+            DataHandler.deleteAccount(currentlySelectedAccount);
         }
 
-        public void updateListbox()
+        public void updateControls()
         {
+            cmbPlayer.ItemsSource = DataHandler.data.accounts.Keys;
             cmbServer_SelectionChanged(null, null);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            DataHandler.serialize();
         }
     }
 }

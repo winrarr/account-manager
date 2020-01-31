@@ -36,13 +36,13 @@ namespace account_manager_wpf
 
         private void btnAddAccount_Click(object sender, RoutedEventArgs e)
         {
-            AccountListHandler.addAccount(txtPlayer.Text, txtUsername.Text, txtPassword.Text, txtPassword.Text, txtName.Text);
+            DataHandler.addAccount(txtPlayer.Text, txtUsername.Text, txtPassword.Text, cmbServer.Text, txtName.Text);
             this.Close();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            mainWindow.updateListbox();
+            mainWindow.updateControls();
             mainWindow.Visibility = Visibility.Visible;
         }
     }
