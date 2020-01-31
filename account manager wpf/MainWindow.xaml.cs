@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace account_manager_wpf
 {
@@ -33,6 +22,8 @@ namespace account_manager_wpf
             DataHandler.deserialize();
             DataHandler.updateAllAccounts();
             cmbPlayer.ItemsSource = DataHandler.data.accounts.Keys;
+            cmbPlayer.SelectedIndex = cmbPlayer.Items.IndexOf(DataHandler.data.defaultPlayer);
+            cmbServer.SelectedIndex = cmbServer.Items.IndexOf(DataHandler.data.defaultServer);
         }
 
 
@@ -52,6 +43,11 @@ namespace account_manager_wpf
 
         private void cmbServer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            updateListbox();
+        }
+
+        private void updateListbox()
+        {
             currentlySelectedAccount = null;
             try
             {
@@ -65,7 +61,7 @@ namespace account_manager_wpf
                     {
                         currentlySelectedAccount = account;
                         txtUsername.Text = account.username;
-                        txtPassword.Text = account.password;
+                        txtPasswordbox.Password = account.password;
                         lblRank.Content = account.tier + " " + account.rank + " (" + account.leaguePoints + " LP)";
                         lblWinrate.Content = Math.Round((float)account.wins / ((float)account.wins + (float)account.losses) * 100, 2) + " %";
                     });
@@ -82,12 +78,35 @@ namespace account_manager_wpf
         public void updateControls()
         {
             cmbPlayer.ItemsSource = DataHandler.data.accounts.Keys;
-            cmbServer_SelectionChanged(null, null);
+            updateListbox();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            DataHandler.data.defaultPlayer = cmbPlayer.Text;
+            DataHandler.data.defaultServer = cmbServer.Text;
             DataHandler.serialize();
+        }
+
+        private void btnUpdateAllAccounts_Click(object sender, RoutedEventArgs e)
+        {
+            DataHandler.updateAllAccounts();
+        }
+
+        private void chkShowPassword_Click(object sender, RoutedEventArgs e)
+        {
+            if (chkShowPassword.IsChecked == true)
+            {
+                txtPassword.Text = txtPasswordbox.Password;
+                txtPassword.Visibility = Visibility.Visible;
+                txtPasswordbox.Visibility = Visibility.Hidden;
+            }
+            else if (chkShowPassword.IsChecked == false)
+            {
+                txtPasswordbox.Password = txtPassword.Text;
+                txtPasswordbox.Visibility = Visibility.Visible;
+                txtPassword.Visibility = Visibility.Hidden;
+            }
         }
     }
 }
