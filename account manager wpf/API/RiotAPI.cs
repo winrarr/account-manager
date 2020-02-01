@@ -10,8 +10,15 @@ namespace account_manager_wpf
 {
     public class RiotAPI
     {
-        private static string apiKey = "?api_key=" + "RGAPI-5f3e28b8-533a-4618-92c0-858a4514fcb1";
+        private static string apiKey = "?api_key=" + "RGAPI-5d2bb925-a1fe-4bfe-aee4-46e7b08bfc1b";
 
+        /// <summary>
+        /// Retrieves APIAccount object from given server and name using the Riot Games API
+        /// </summary>
+        /// <typeparam name="APIAccount"></typeparam>
+        /// <param name="server">Server of the account</param>
+        /// <param name="name">Summoner name of the account</param>
+        /// <returns>Returns an APIAccount object retrieved using the Riot Games API</returns>
         public static APIAccount GetAccountFromName<APIAccount>(string server, string name) where APIAccount : new()
         {
             using (var w = new WebClient())
@@ -27,6 +34,13 @@ namespace account_manager_wpf
             }
         }
 
+        /// <summary>
+        /// Retrieves APIAccount object from given server and puuid using the Riot Games API
+        /// </summary>
+        /// <typeparam name="APIAccount"></typeparam>
+        /// <param name="server">Server of the account</param>
+        /// <param name="puuId">Puuid of the account</param>
+        /// <returns>Returns an APIAccount object retrieved using the Riot Games API</returns>
         public static APIAccount GetAccountFromPuuId<APIAccount>(string server, string puuId) where APIAccount : new()
         {
             using (var w = new WebClient())
@@ -42,6 +56,13 @@ namespace account_manager_wpf
             }
         }
 
+        /// <summary>
+        /// Retrieves APIRank object from given server and summoner id using the Riot Games API
+        /// </summary>
+        /// <typeparam name="APIRank"></typeparam>
+        /// <param name="server">Server of the account</param>
+        /// <param name="id">Summoner id of the account</param>
+        /// <returns>Returns an APIRank object retrieved using the Riot Games API</returns>
         public static APIRank GetRankFromId<APIRank>(string server, string id) where APIRank : new()
         {
             using (var w = new WebClient())

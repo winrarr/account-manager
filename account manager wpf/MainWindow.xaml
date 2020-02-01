@@ -5,30 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:account_manager_wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="642.541" Width="292" Closed="Window_Closed">
+        Title="MainWindow" Height="568" Width="300" Closed="Window_Closed">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="183*"/>
-            <ColumnDefinition Width="101*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <ComboBox x:Name="cmbServer" HorizontalAlignment="Left" Margin="61,45,0,0" VerticalAlignment="Top" Width="87" SelectionChanged="cmbServer_SelectionChanged" IsReadOnly="True"/>
         <Button x:Name="btnAddAccount" Content="Add Account" HorizontalAlignment="Left" Margin="17,349,0,0" VerticalAlignment="Top" Width="119" Click="btnAddAccount_Click" Height="23"/>
         <Label x:Name="lblServer" Content="Server:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblPlayer" Content="Player:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbPlayer" HorizontalAlignment="Left" Margin="61,14,0,0" VerticalAlignment="Top" Width="207" SelectionChanged="cmbPlayer_SelectionChanged" Grid.ColumnSpan="2" IsReadOnly="True"/>
-        <CheckBox x:Name="chkShowPassword" Content="Show Password" HorizontalAlignment="Left" Margin="165,49,0,0" VerticalAlignment="Top" Width="112" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" Click="chkShowPassword_Click"/>
-        <Button x:Name="btnDeleteAccount" Content="Delete Account" HorizontalAlignment="Left" Margin="151,349,0,0" VerticalAlignment="Top" Width="117" Height="23" Grid.ColumnSpan="2" Click="btnDeleteAccount_Click"/>
-        <ListBox x:Name="lstAccounts" HorizontalAlignment="Left" Height="252" Margin="10,82,0,0" VerticalAlignment="Top" Width="264" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="cmbPlayer" HorizontalAlignment="Left" Margin="61,14,0,0" VerticalAlignment="Top" Width="207" SelectionChanged="cmbPlayer_SelectionChanged" IsReadOnly="True"/>
+        <CheckBox x:Name="chkShowPassword" Content="Show Password" HorizontalAlignment="Left" Margin="165,49,0,0" VerticalAlignment="Top" Width="112" RenderTransformOrigin="0.5,0.5" Click="chkShowPassword_Click"/>
+        <Button x:Name="btnDeleteAccount" Content="Delete Account" HorizontalAlignment="Left" Margin="151,349,0,0" VerticalAlignment="Top" Width="117" Height="23" Click="btnDeleteAccount_Click"/>
+        <ListBox x:Name="lstAccounts" HorizontalAlignment="Left" Height="252" Margin="10,82,0,0" VerticalAlignment="Top" Width="264"/>
         <Button x:Name="btnPassword" Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="17,411,0,0" Height="23"/>
         <Button x:Name="btnUsername" Content="Username:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="17,383,0,0" Height="23"/>
-        <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Margin="97,383,0,0" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Margin="97,383,0,0"/>
         <Label Content="Rank:" HorizontalAlignment="Left" Margin="18,439,0,0" VerticalAlignment="Top"/>
         <Label Content="W/R:" HorizontalAlignment="Left" Margin="18,463,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblRank" Content="" HorizontalAlignment="Left" Margin="62,439,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="206"/>
-        <Label x:Name="lblWinrate" HorizontalAlignment="Left" Margin="62,463,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="206"/>
-        <Button x:Name="btnUpdateAllAccounts" Content="Update All Accounts" HorizontalAlignment="Left" Margin="18,494,0,0" VerticalAlignment="Top" Width="250" Height="23" Grid.ColumnSpan="2" Click="btnUpdateAllAccounts_Click"/>
-        <PasswordBox x:Name="txtPasswordbox" HorizontalAlignment="Left" Margin="97,411,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="171" Height="23"/>
-        <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Grid.ColumnSpan="2" Margin="97,411,0,0" Visibility="Hidden"/>
+        <Label x:Name="lblRank" Content="" HorizontalAlignment="Left" Margin="62,439,0,0" VerticalAlignment="Top" Width="206"/>
+        <Label x:Name="lblWinrate" HorizontalAlignment="Left" Margin="62,463,0,0" VerticalAlignment="Top" Width="206"/>
+        <Button x:Name="btnUpdateAllAccounts" Content="Update All Accounts" HorizontalAlignment="Left" Margin="18,494,0,0" VerticalAlignment="Top" Width="250" Height="23" Click="btnUpdateAllAccounts_Click"/>
+        <PasswordBox x:Name="txtPasswordbox" HorizontalAlignment="Left" Margin="97,411,0,0" VerticalAlignment="Top" Width="171" Height="23"/>
+        <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Margin="97,411,0,0" Visibility="Hidden"/>
 
     </Grid>
 </Window>

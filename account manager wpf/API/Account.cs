@@ -1,4 +1,5 @@
-﻿using System;
+﻿using account_manager_wpf.API;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,14 @@ namespace account_manager_wpf
     {
         public bool failed = false;
 
+        /// <summary>
+        /// Creates a new account from the given account information using the Riot Games API
+        /// </summary>
+        /// <param name="player">Player who owns the account</param>
+        /// <param name="username">Account username</param>
+        /// <param name="password">Account password</param>
+        /// <param name="server">Server of the account</param>
+        /// <param name="name">Summoner name of the account</param>
         public Account(string player, string username, string password, string server, string name)
         {
             this.player = player;
@@ -18,23 +27,29 @@ namespace account_manager_wpf
             this.server = server;
             this.name = name;
 
-            try
+            try // Load account information from Riot Games API
             {
-                addAPIAccount(RiotAPI.GetAccountFromName<API.APIAccount>(server, name));
-                addAPIRank(RiotAPI.GetRankFromId<API.APIRank>(server, this.id));
+                addAPIAccount(RiotAPI.GetAccountFromName<APIAccount>(server, name));
+                addAPIRank(RiotAPI.GetRankFromId<APIRank>(server, this.id));
             }
             catch (Exception) { failed = true; }
         }
 
+        /// <summary>
+        /// Updates the account using the Riot Games API
+        /// </summary>
         public void update()
         {
             try
             {
-                addAPIAccount(RiotAPI.GetAccountFromPuuId<API.APIAccount>(this.server, this.puuId));
-                addAPIRank(RiotAPI.GetRankFromId<API.APIRank>(this.server, this.id));
+                addAPIAccount(RiotAPI.GetAccountFromPuuId<APIAccount>(this.server, this.puuId));
+                addAPIRank(RiotAPI.GetRankFromId<APIRank>(this.server, this.id));
             } catch (Exception) { findNewServer(); }
         }
 
+        /// <summary>
+        /// Searches for a new server where the account is present
+        /// </summary>
         private void findNewServer()
         {
             List<string> servers = new List<string> { "EUW1", "NA1", "EUN1", "TR1", "LA1", "OC", "RU", "KR", "LA2", "JP1", "BR" };
@@ -43,13 +58,13 @@ namespace account_manager_wpf
             {
                 try
                 {
-                    addAPIAccount(RiotAPI.GetAccountFromPuuId<API.APIAccount>(server, this.puuId));
+                    addAPIAccount(RiotAPI.GetAccountFromPuuId<APIAccount>(server, this.puuId));
                 }
                 catch (Exception) { }
 
                 try
                 {
-                    addAPIRank(RiotAPI.GetRankFromId<API.APIRank>(this.server, this.id));
+                    addAPIRank(RiotAPI.GetRankFromId<APIRank>(this.server, this.id));
                 } catch (Exception) { }
             }
         }
@@ -87,7 +102,11 @@ namespace account_manager_wpf
         public int leaguePoints { get; set; }
         #endregion
 
-        public void addAPIAccount(API.APIAccount apia)
+        /// <summary>
+        /// Updates the APIAccount properties from another APIAccount object
+        /// </summary>
+        /// <param name="apia">APIAccount object to update the account to</param>
+        public void addAPIAccount(APIAccount apia)
         {
             profileIconId = apia.profileIconId;
             name = apia.name;
@@ -98,7 +117,11 @@ namespace account_manager_wpf
             revisionDate = apia.revisionDate;
         }
 
-        public void addAPIRank(API.APIRank apir)
+        /// <summary>
+        /// Updates the APIRank properties from another APIRank object
+        /// </summary>
+        /// <param name="apir">APIRankt object to update the account to</param>
+        public void addAPIRank(APIRank apir)
         {
             queueType = apir.queueType;
             summonerName = apir.summonerName;

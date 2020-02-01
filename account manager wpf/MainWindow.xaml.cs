@@ -26,8 +26,6 @@ namespace account_manager_wpf
             cmbServer.SelectedIndex = cmbServer.Items.IndexOf(DataHandler.data.defaultServer);
         }
 
-
-
         private void btnAddAccount_Click(object sender, RoutedEventArgs e)
         {
             AddAccountWindow addAccountWindow = new AddAccountWindow(this);
@@ -45,7 +43,10 @@ namespace account_manager_wpf
         {
             updateListbox();
         }
-
+        
+        /// <summary>
+        /// Updates the content of the listbox containing the accounts
+        /// </summary>
         private void updateListbox()
         {
             currentlySelectedAccount = null;
@@ -75,6 +76,9 @@ namespace account_manager_wpf
             DataHandler.deleteAccount(currentlySelectedAccount);
         }
 
+        /// <summary>
+        /// Updates the controls of the window
+        /// </summary>
         public void updateControls()
         {
             cmbPlayer.ItemsSource = DataHandler.data.accounts.Keys;

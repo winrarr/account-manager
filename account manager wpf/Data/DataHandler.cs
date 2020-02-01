@@ -13,6 +13,10 @@ namespace account_manager_wpf
     {
         public static Data data;
 
+        /// <summary>
+        /// Loads all the data from Accounts.json file
+        /// </summary>
+        /// <param name="path">Potential Explicit path for file to read from (defaults to same directory as exe file)</param>
         public static void deserialize(string path = @"Accounts.json")
         {
             try
@@ -26,6 +30,10 @@ namespace account_manager_wpf
             }
         }
 
+        /// <summary>
+        /// Saves the data to Accounts.json file
+        /// </summary>
+        /// <param name="path">Potential explicit path for file to read to (defaults to same directory as exe file)</param>
         public static void serialize(string path = @"Accounts.json")
         {
             //FileAttributes attr = File.GetAttributes(@"Accounts.json");
@@ -42,6 +50,9 @@ namespace account_manager_wpf
             //File.SetAttributes(path, attr);
         }
 
+        /// <summary>
+        /// Updates all the accounts in the data using the Riot Game API
+        /// </summary>
         public static void updateAllAccounts()
         {
             foreach (KeyValuePair<string, Dictionary<string, List<Account>>> player in data.accounts)
@@ -56,13 +67,18 @@ namespace account_manager_wpf
             }
         }
 
-        public static string deleteAccount(Account account)
+        /// <summary>
+        /// Deletes the given account from the data
+        /// </summary>
+        /// <param name="account">Account to delete from the data</param>
+        public static void deleteAccount(Account account)
         {
             if (account != null)
             {
                 string player = account.player;
                 string server = account.server;
 
+                // Delete parents (server + player) if empty after account delete
                 data.accounts[player][server].Remove(account);
                 if (data.accounts[player][server].Count == 0)
                 {
@@ -74,12 +90,18 @@ namespace account_manager_wpf
                 }
 
                 serialize();
-
-                return account.name;
             }
-            return null;
         }
 
+        /// <summary>
+        /// Adds an account with the given parameters to the data
+        /// </summary>
+        /// <param name="player">Player who owns the account</param>
+        /// <param name="username">Account username</param>
+        /// <param name="password">Account password</param>
+        /// <param name="server">Server of the account</param>
+        /// <param name="name">Summoner name of the account</param>
+        /// <returns>Returns an integer indicating the result of the operation (0 = Success, 1 = Account already added, 2 = Account could not be retrieved)</returns>
         public static int addAccount(string player, string username, string password, string server, string name)
         {
             Account account = new Account(player, username, password, server, name);
@@ -90,34 +112,45 @@ namespace account_manager_wpf
             }
             if (data.puuIds.Contains(account.puuId))
             {
-                MessageBox.Show("Account already added");
                 return 1;
             }
             data.puuIds.Add(account.puuId);
 
-
-            foreach (string p in data.accounts.Keys)
+            
+            player = findNonCaseSensitive(player, new List<string>(data.accounts.Keys)); // Find already added player
+            if (player == null) // If not found
             {
-                if (p.ToUpper().Equals(player.ToUpper()))
-                {
-
-                }
-            }
-            if (!data.accounts.ContainsKey(player)) // If player not present
-            {
-                data.accounts[player] = new Dictionary<string, List<Account>>(); // Add <player, server dictionary> to dictionary
+                data.accounts[player] = new Dictionary<string, List<Account>>(); // Create the player
             }
 
-            if (!data.accounts[player].ContainsKey(server)) // If server not present in player
+            server = findNonCaseSensitive(server, new List<string>(data.accounts[player].Keys)); // Find already added server
+            if (server == null) // If not found
             {
-                data.accounts[player][server] = new List<Account>(); // Add empty server list<account> to player
+                data.accounts[player][server] = new List<Account>(); // Create the server
             }
 
             data.accounts[player][server].Add(account); // Add account to server
 
             serialize();
-
             return 0;
+        }
+
+        /// <summary>
+        /// Finds a string from the given list which matches the given string when not case sensitive
+        /// </summary>
+        /// <param name="findString">String to be found in list</param>
+        /// <param name="strings">List of strings to compare to</param>
+        /// <returns>Returns the string from the given list that matches the given string</returns>
+        private static string findNonCaseSensitive(string findString, List<string> strings) // Find any matching string
+        {
+            foreach (string s in strings)
+            {
+                if (s.ToUpper().Equals(findString.ToUpper()))
+                {
+                    return s;
+                }
+            }
+            return null;
         }
     }
 }
