@@ -117,21 +117,22 @@ namespace account_manager_wpf
             data.puuIds.Add(account.puuId);
 
             
-            string alreadyAddedPlayer = findNonCaseSensitive(player, new List<string>(data.accounts.Keys)); // Find already added player
+            string alreadyAddedPlayer = findMatchingString(player, new List<string>(data.accounts.Keys)); // Find already added player
             if (alreadyAddedPlayer == null) // If not found
             {
                 data.accounts[player] = new Dictionary<string, List<Account>>(); // Create the player
                 alreadyAddedPlayer = player;
             }
-            data.accounts[alreadyAddedPlayer].Add(server, new List<Account>()); // Add server to player
+            account.player = alreadyAddedPlayer;
 
-            string alreadyAddedServer = findNonCaseSensitive(server, new List<string>(data.accounts[player].Keys)); // Find already added server
-            if (server == null) // If not found
+            string alreadyAddedServer = findMatchingString(server, new List<string>(data.accounts[alreadyAddedPlayer].Keys)); // Find already added server
+            if (alreadyAddedServer == null) // If not found
             {
                 data.accounts[alreadyAddedPlayer][server] = new List<Account>(); // Create the server
                 alreadyAddedServer = server;
             }
             data.accounts[alreadyAddedPlayer][alreadyAddedServer].Add(account); // Add account to server
+            account.server = alreadyAddedServer;
 
             serialize();
             return 0;
@@ -143,7 +144,7 @@ namespace account_manager_wpf
         /// <param name="findString">String to be found in list</param>
         /// <param name="strings">List of strings to compare to</param>
         /// <returns>Returns the string from the given list that matches the given string</returns>
-        private static string findNonCaseSensitive(string findString, List<string> strings) // Find any matching string
+        private static string findMatchingString(string findString, List<string> strings)
         {
             foreach (string s in strings)
             {

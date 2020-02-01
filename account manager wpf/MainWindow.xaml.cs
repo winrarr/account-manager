@@ -36,7 +36,11 @@ namespace account_manager_wpf
         private void cmbPlayer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             currentlySelectedAccount = null;
-            cmbServer.ItemsSource = DataHandler.data.accounts[Convert.ToString(cmbPlayer.SelectedValue)].Keys;
+            try
+            {
+                cmbServer.ItemsSource = DataHandler.data.accounts[Convert.ToString(cmbPlayer.SelectedValue)].Keys;
+            }
+            catch (Exception) { }
         }
 
         private void cmbServer_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,6 +54,7 @@ namespace account_manager_wpf
         private void updateListbox()
         {
             currentlySelectedAccount = null;
+            lstAccounts.Items.Clear();
             try
             {
                 foreach (Account account in DataHandler.data.accounts[Convert.ToString(cmbPlayer.SelectedValue)][Convert.ToString(cmbServer.SelectedValue)])
@@ -74,6 +79,7 @@ namespace account_manager_wpf
         private void btnDeleteAccount_Click(object sender, RoutedEventArgs e)
         {
             DataHandler.deleteAccount(currentlySelectedAccount);
+            updateControls();
         }
 
         /// <summary>
@@ -81,8 +87,18 @@ namespace account_manager_wpf
         /// </summary>
         public void updateControls()
         {
+            Object selectedPlayer = null;
+            try
+            {
+                selectedPlayer = cmbPlayer.SelectedItem;
+            }
+            catch { }
             cmbPlayer.ItemsSource = null;
             cmbPlayer.ItemsSource = DataHandler.data.accounts.Keys;
+            try
+            {
+                cmbPlayer.SelectedItem = selectedPlayer;
+            } catch { }
             updateListbox();
         }
 
