@@ -39,6 +39,7 @@ namespace account_manager_wpf
             switch (DataHandler.addAccount(txtPlayer.Text, txtUsername.Text, txtPassword.Text, cmbServer.Text, txtName.Text))
             {
                 case 0:
+                    this.Close();
                     break;
                 case 1:
                     MessageBox.Show("Account already added");
@@ -47,7 +48,6 @@ namespace account_manager_wpf
                     MessageBox.Show("Something went wrong");
                     break;
             }
-            this.Close();
         }
 
         private void Window_Closed(object sender, EventArgs e)

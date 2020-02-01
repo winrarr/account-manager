@@ -117,19 +117,21 @@ namespace account_manager_wpf
             data.puuIds.Add(account.puuId);
 
             
-            player = findNonCaseSensitive(player, new List<string>(data.accounts.Keys)); // Find already added player
-            if (player == null) // If not found
+            string alreadyAddedPlayer = findNonCaseSensitive(player, new List<string>(data.accounts.Keys)); // Find already added player
+            if (alreadyAddedPlayer == null) // If not found
             {
                 data.accounts[player] = new Dictionary<string, List<Account>>(); // Create the player
+                alreadyAddedPlayer = player;
             }
+            data.accounts[alreadyAddedPlayer].Add(server, new List<Account>()); // Add server to player
 
-            server = findNonCaseSensitive(server, new List<string>(data.accounts[player].Keys)); // Find already added server
+            string alreadyAddedServer = findNonCaseSensitive(server, new List<string>(data.accounts[player].Keys)); // Find already added server
             if (server == null) // If not found
             {
-                data.accounts[player][server] = new List<Account>(); // Create the server
+                data.accounts[alreadyAddedPlayer][server] = new List<Account>(); // Create the server
+                alreadyAddedServer = server;
             }
-
-            data.accounts[player][server].Add(account); // Add account to server
+            data.accounts[alreadyAddedPlayer][alreadyAddedServer].Add(account); // Add account to server
 
             serialize();
             return 0;

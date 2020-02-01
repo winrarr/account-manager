@@ -81,6 +81,7 @@ namespace account_manager_wpf
         /// </summary>
         public void updateControls()
         {
+            cmbPlayer.ItemsSource = null;
             cmbPlayer.ItemsSource = DataHandler.data.accounts.Keys;
             updateListbox();
         }
