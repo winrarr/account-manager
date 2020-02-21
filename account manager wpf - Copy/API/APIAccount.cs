@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace account_manager_wpf.API
 {
-    public class APIAccount
+    public class APIAccount : IAPIAccount
     {
         public int profileIconId { get; set; }
         public string name { get; set; }

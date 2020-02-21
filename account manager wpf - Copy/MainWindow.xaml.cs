@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
-using Timers = System.Timers;
 
 namespace account_manager_wpf
 {
@@ -37,15 +35,10 @@ namespace account_manager_wpf
 
         private void cmbPlayer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            object selectedServer = cmbServer.SelectedItem;
             currentlySelectedAccount = null;
             try
             {
                 cmbServer.ItemsSource = DataHandler.data.accounts[Convert.ToString(cmbPlayer.SelectedValue)].Keys;
-                if (DataHandler.data.accounts[Convert.ToString(cmbPlayer.SelectedValue)].ContainsKey(Convert.ToString(cmbServer.SelectedValue))) // If newly selected player has already selected server
-                {
-                    updateListbox();
-                }
             }
             catch (Exception) { }
         }
@@ -67,7 +60,7 @@ namespace account_manager_wpf
                 foreach (Account account in DataHandler.data.accounts[Convert.ToString(cmbPlayer.SelectedValue)][Convert.ToString(cmbServer.SelectedValue)])
                 {
                     ListBoxItem lbiAccount = new ListBoxItem();
-                    lbiAccount.Content = account.apia.name;
+                    lbiAccount.Content = account.name;
                     lstAccounts.Items.Add(lbiAccount);
 
                     lbiAccount.Selected += new RoutedEventHandler((item, args) =>
@@ -75,8 +68,8 @@ namespace account_manager_wpf
                         currentlySelectedAccount = account;
                         txtUsername.Text = account.username;
                         txtPasswordbox.Password = account.password;
-                        lblRank.Content = account.apir.tier + " " + account.apir.rank + " (" + account.apir.leaguePoints + " LP)";
-                        lblWinrate.Content = Math.Round((float)account.apir.wins / ((float)account.apir.wins + (float)account.apir.losses) * 100, 2) + " %";
+                        lblRank.Content = account.tier + " " + account.rank + " (" + account.leaguePoints + " LP)";
+                        lblWinrate.Content = Math.Round((float)account.wins / ((float)account.wins + (float)account.losses) * 100, 2) + " %";
                     });
                 }
             }
@@ -97,14 +90,14 @@ namespace account_manager_wpf
             Object selectedPlayer = cmbPlayer.SelectedItem;
             cmbPlayer.ItemsSource = null;
             cmbPlayer.ItemsSource = DataHandler.data.accounts.Keys;
-            cmbPlayer.SelectedItem = selectedPlayer;
+            cmbPlayer.SelectedItem = selectedPlayer ?? cmbPlayer.Items[0];
             updateListbox();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            DataHandler.data.defaultPlayer = Convert.ToString(cmbPlayer.SelectedValue);
-            DataHandler.data.defaultServer = Convert.ToString(cmbServer.SelectedValue);
+            DataHandler.data.defaultPlayer = cmbPlayer.Text;
+            DataHandler.data.defaultServer = cmbServer.Text;
             DataHandler.serialize();
         }
 
@@ -127,38 +120,6 @@ namespace account_manager_wpf
                 txtPasswordbox.Visibility = Visibility.Visible;
                 txtPassword.Visibility = Visibility.Hidden;
             }
-        }
-
-        private void btnUsername_Click(object sender, RoutedEventArgs e)
-        {
-            // Copy username and display copied for 2 seconds
-            Clipboard.SetText(txtUsername.Text);
-            btnUsername.Content = "Copied!";
-
-            DispatcherTimer t = new DispatcherTimer();
-            t.Interval = TimeSpan.FromSeconds(2);
-            t.Tick += (s, arg) =>
-            {
-                btnUsername.Content = "Username:";
-                t.Stop();
-            };
-            t.Start();
-        }
-
-        private void btnPassword_Click(object sender, RoutedEventArgs e)
-        {
-            // Copy password and display copied for 2 seconds
-            Clipboard.SetText(txtPassword.Text);
-            btnPassword.Content = "Copied!";
-
-            DispatcherTimer t = new DispatcherTimer();
-            t.Interval = TimeSpan.FromSeconds(2);
-            t.Tick += (s, arg) =>
-            {
-                btnPassword.Content = "Password:";
-                t.Stop();
-            };
-            t.Start();
         }
     }
 }

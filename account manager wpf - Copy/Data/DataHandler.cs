@@ -68,6 +68,32 @@ namespace account_manager_wpf
         }
 
         /// <summary>
+        /// Deletes the given account from the data
+        /// </summary>
+        /// <param name="account">Account to delete from the data</param>
+        public static void deleteAccount(Account account)
+        {
+            if (account != null)
+            {
+                string player = account.player;
+                string server = account.server;
+
+                // Delete parents (server + player) if empty after account delete
+                data.accounts[player][server].Remove(account);
+                if (data.accounts[player][server].Count == 0)
+                {
+                    data.accounts[player].Remove(server);
+                }
+                if (data.accounts[player].Count == 0)
+                {
+                    data.accounts.Remove(player);
+                }
+
+                serialize();
+            }
+        }
+
+        /// <summary>
         /// Adds an account with the given parameters to the data
         /// </summary>
         /// <param name="player">Player who owns the account</param>
@@ -84,11 +110,11 @@ namespace account_manager_wpf
             {
                 return 2;
             }
-            if (data.puuIds.Contains(account.apia.puuId))
+            if (data.puuIds.Contains(account.puuId))
             {
                 return 1;
             }
-            data.puuIds.Add(account.apia.puuId);
+            data.puuIds.Add(account.puuId);
 
             
             string alreadyAddedPlayer = findMatchingString(player, new List<string>(data.accounts.Keys)); // Find already added player
@@ -110,33 +136,6 @@ namespace account_manager_wpf
 
             serialize();
             return 0;
-        }
-
-        /// <summary>
-        /// Deletes the given account from the data
-        /// </summary>
-        /// <param name="account">Account to delete from the data</param>
-        public static void deleteAccount(Account account)
-        {
-            if (account != null)
-            {
-                string player = account.player;
-                string server = account.server;
-
-                // Delete parents (server + player) if empty after account delete
-                data.accounts[player][server].Remove(account);
-                if (data.accounts[player][server].Count == 0)
-                {
-                    data.accounts[player].Remove(server);
-                }
-                if (data.accounts[player].Count == 0)
-                {
-                    data.accounts.Remove(player);
-                }
-                data.puuIds.Remove(account.apia.puuId);
-
-                serialize();
-            }
         }
 
         /// <summary>

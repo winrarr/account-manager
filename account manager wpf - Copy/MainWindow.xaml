@@ -19,8 +19,8 @@
         <CheckBox x:Name="chkShowPassword" Content="Show Password" Margin="0,49,13,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Click="chkShowPassword_Click" Grid.Column="1" Height="15" HorizontalAlignment="Right" Width="103"/>
         <Button x:Name="btnDeleteAccount" Content="Delete Account" Margin="10,0,17,165" Click="btnDeleteAccount_Click" Grid.Column="1" Height="23" VerticalAlignment="Bottom"/>
         <ListBox x:Name="lstAccounts" Margin="10,82,11,203" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnPassword" Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Margin="17,0,0,103" Height="23" Click="btnPassword_Click"/>
-        <Button x:Name="btnUsername" Content="Username:" HorizontalAlignment="Left" Width="75" Margin="17,0,0,131" Height="23" VerticalAlignment="Bottom" Click="btnUsername_Click"/>
+        <Button x:Name="btnPassword" Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Margin="17,0,0,103" Height="23"/>
+        <Button x:Name="btnUsername" Content="Username:" HorizontalAlignment="Left" Width="75" Margin="17,0,0,131" Height="23" VerticalAlignment="Bottom"/>
         <TextBox x:Name="txtUsername" TextWrapping="Wrap" Margin="106,0,17,131" Grid.ColumnSpan="2" Height="23" VerticalAlignment="Bottom"/>
         <Label Content="Rank:" HorizontalAlignment="Left" Margin="18,0,0,72" Width="39" Height="26" VerticalAlignment="Bottom"/>
         <Label Content="W/R:" HorizontalAlignment="Left" Margin="18,0,0,48" Width="36" Height="26" VerticalAlignment="Bottom"/>
@@ -28,7 +28,7 @@
         <Label x:Name="lblWinrate" HorizontalAlignment="Left" Margin="62,0,0,48" Width="206" Grid.ColumnSpan="2" Height="26" VerticalAlignment="Bottom"/>
         <Button x:Name="btnUpdateAllAccounts" Content="Update All Accounts" Margin="18,0,17,20" Click="btnUpdateAllAccounts_Click" Grid.ColumnSpan="2" Height="23" VerticalAlignment="Bottom"/>
         <PasswordBox x:Name="txtPasswordbox" Margin="106,0,17,103" Grid.ColumnSpan="2" Height="23" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="txtPassword" Margin="106,0,17,103" Grid.ColumnSpan="2" Height="23" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Margin="0,411,-27,0" Visibility="Hidden" Grid.Column="1"/>
 
     </Grid>
 </Window>

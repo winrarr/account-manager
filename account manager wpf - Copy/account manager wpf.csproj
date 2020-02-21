@@ -60,6 +60,8 @@
     <Compile Include="API\Account.cs" />
     <Compile Include="API\APIAccount.cs" />
     <Compile Include="API\APIRank.cs" />
+    <Compile Include="API\IAPIAccount.cs" />
+    <Compile Include="API\IAPIRank.cs" />
     <Compile Include="API\RiotAPI.cs" />
     <Page Include="AddAccountWindow.xaml">
       <SubType>Designer</SubType>

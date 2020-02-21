@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace account_manager_wpf.API
 {
-    public class APIRank
+    public class APIRank : IAPIRank
     {
         public string queueType { get; set; }
         public string summonerName { get; set; }
