@@ -10,7 +10,7 @@ namespace account_manager_wpf
 {
     public class RiotAPI
     {
-        private static string apiKey = "?api_key=" + "RGAPI-6cb7df72-3d8f-4285-917e-3c14507306f2";
+        private static readonly string apiKey = "?api_key=" + "RGAPI-6cb7df72-3d8f-4285-917e-3c14507306f2";
 
         /// <summary>
         /// Retrieves APIAccount object from given server and name using the Riot Games API

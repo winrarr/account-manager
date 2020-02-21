@@ -19,7 +19,7 @@ namespace account_manager_wpf
     /// </summary>
     public partial class AddAccountWindow : Window
     {
-        private MainWindow mainWindow;
+        private readonly MainWindow mainWindow;
 
         public AddAccountWindow(MainWindow mainWindow)
         {

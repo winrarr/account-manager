@@ -37,7 +37,6 @@ namespace account_manager_wpf
 
         private void cmbPlayer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            object selectedServer = cmbServer.SelectedItem;
             currentlySelectedAccount = null;
             try
             {
@@ -66,8 +65,10 @@ namespace account_manager_wpf
             {
                 foreach (Account account in DataHandler.data.accounts[Convert.ToString(cmbPlayer.SelectedValue)][Convert.ToString(cmbServer.SelectedValue)])
                 {
-                    ListBoxItem lbiAccount = new ListBoxItem();
-                    lbiAccount.Content = account.apia.name;
+                    ListBoxItem lbiAccount = new ListBoxItem
+                    {
+                        Content = account.apia.name
+                    };
                     lstAccounts.Items.Add(lbiAccount);
 
                     lbiAccount.Selected += new RoutedEventHandler((item, args) =>
@@ -135,8 +136,10 @@ namespace account_manager_wpf
             Clipboard.SetText(txtUsername.Text);
             btnUsername.Content = "Copied!";
 
-            DispatcherTimer t = new DispatcherTimer();
-            t.Interval = TimeSpan.FromSeconds(2);
+            DispatcherTimer t = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(2)
+            };
             t.Tick += (s, arg) =>
             {
                 btnUsername.Content = "Username:";
@@ -151,8 +154,10 @@ namespace account_manager_wpf
             Clipboard.SetText(txtPassword.Text);
             btnPassword.Content = "Copied!";
 
-            DispatcherTimer t = new DispatcherTimer();
-            t.Interval = TimeSpan.FromSeconds(2);
+            DispatcherTimer t = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(2)
+            };
             t.Tick += (s, arg) =>
             {
                 btnPassword.Content = "Password:";
